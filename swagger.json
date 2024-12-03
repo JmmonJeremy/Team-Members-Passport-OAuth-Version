@@ -5,42 +5,45 @@
     "description": "Computer Store API",
     "version": "1.0.0"
   },
-  "host": "localhost:55000",
+  "host": "team-members-passport-oauth-version.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "securityDefinitions": {
-    "BearerAuth": {
-      "type": "apiKey",
-      "in": "header",
-      "name": "Authorization",
-      "description": "Enter the JWT token with 'Bearer ' prefix"
+    "GoogleOAuth2": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "https://team-members-passport-oauth-version.onrender.com",
+      "description": "Use Google OAuth2 to authenticate <b>The server uses the hidden values GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET here.</b>"
     }
   },
-  "security": [
-    {
-      "BearerAuth": []
-    }
-  ],
   "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/items/": {
       "get": {
-        "description": "Get all items",
+        "description": "",
         "parameters": [
           {
             "name": "authorization",
             "in": "header",
+            "description": "JWT token with Bearer prefix",
             "type": "string",
-            "description": "JWT token with Bearer prefix"
+            "default": "Bearer "
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
           },
           "403": {
             "description": "Forbidden"
@@ -51,13 +54,14 @@
         }
       },
       "post": {
-        "description": "Create a new item",
+        "description": "",
         "parameters": [
           {
             "name": "authorization",
             "in": "header",
+            "description": "JWT token with Bearer prefix",
             "type": "string",
-            "description": "JWT token with Bearer prefix"
+            "default": "Bearer "
           },
           {
             "name": "body",
@@ -87,29 +91,17 @@
               "required": "name"
             }
           }
-        ],        
+        ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
           "403": {
             "description": "Forbidden"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
     },
     "/items/{id}": {
       "get": {
-        "description": "Get a single item by ID",
+        "description": "",
         "parameters": [
           {
             "name": "id",
@@ -120,16 +112,14 @@
           {
             "name": "authorization",
             "in": "header",
+            "description": "JWT token with Bearer prefix",
             "type": "string",
-            "description": "JWT token with Bearer prefix"
+            "default": "Bearer "
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
           },
           "403": {
             "description": "Forbidden"
@@ -143,7 +133,7 @@
         }
       },
       "put": {
-        "description": "Update an existing item by ID",
+        "description": "",
         "parameters": [
           {
             "name": "id",
@@ -154,33 +144,47 @@
           {
             "name": "authorization",
             "in": "header",
+            "description": "JWT token with Bearer prefix",
             "type": "string",
-            "description": "JWT token with Bearer prefix"
+            "default": "Bearer "
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Fields to update.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "updated part name"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "updated a wonder in electronics"
+                },
+                "price": {
+                  "type": "number",
+                  "example": "25"
+                },
+                "available": {
+                  "type": "boolean",
+                  "example": "false"
+                }
+              },
+              "required": "name"
+            }
           }
         ],
         "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
           "403": {
             "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
       "delete": {
-        "description": "Delete an item by ID",
+        "description": "",
         "parameters": [
           {
             "name": "id",
@@ -191,16 +195,14 @@
           {
             "name": "authorization",
             "in": "header",
+            "description": "JWT token with Bearer prefix",
             "type": "string",
-            "description": "JWT token with Bearer prefix"
+            "default": "Bearer "
           }
         ],
         "responses": {
           "204": {
             "description": "No Content"
-          },
-          "401": {
-            "description": "Unauthorized"
           },
           "403": {
             "description": "Forbidden"
@@ -210,26 +212,6 @@
           },
           "500": {
             "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/auth/google": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/auth/google/callback": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
           }
         }
       }

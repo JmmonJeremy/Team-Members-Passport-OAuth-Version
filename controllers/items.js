@@ -16,6 +16,12 @@ const itemSchema = Joi.object({
  * Retrieve all items from the database.
  */
 const getAll = async (req, res) => {
+  /* #swagger.parameters['authorization'] = {
+      in: 'header',
+      description: 'JWT token with Bearer prefix',       
+      type: 'string',
+      default: 'Bearer '
+  } */
   try {
     const result = await mongodb.getDb().db().collection('items').find();
     const items = await result.toArray();
@@ -30,6 +36,12 @@ const getAll = async (req, res) => {
  * Retrieve a single item by its ID.
  */
 const getSingle = async (req, res) => {
+   /* #swagger.parameters['authorization'] = {
+      in: 'header',
+      description: 'JWT token with Bearer prefix',       
+      type: 'string',
+      default: 'Bearer '
+  } */
   try {
     const itemId = new ObjectId(req.params.id);
     const result = await mongodb.getDb().db().collection('items').findOne({ _id: itemId });
@@ -48,6 +60,12 @@ const getSingle = async (req, res) => {
  * Create a new item in the database.
  */
 const createItem = async (req, res) => {
+   /* #swagger.parameters['authorization'] = {
+      in: 'header',
+      description: 'JWT token with Bearer prefix',       
+      type: 'string',
+      default: 'Bearer '
+  } */
   /* #swagger.parameters['body'] = {
         in: 'body',
         description: 'Fields to fill out.',
@@ -100,6 +118,41 @@ const createItem = async (req, res) => {
  * Update an existing item by its ID.
  */
 const updateItem = async (req, res) => {
+   /* #swagger.parameters['authorization'] = {
+      in: 'header',
+      description: 'JWT token with Bearer prefix',       
+      type: 'string',
+      default: 'Bearer '
+  } */
+ /* #swagger.parameters['body'] = {
+        in: 'body',
+        description: 'Fields to update.',
+        required: true,
+         '@schema': {
+          "type": "object", 
+          "properties": {         
+            "name": {
+              "type": "string",
+              "example": "updated part name"
+            },
+            "description": {
+              "type": "string",
+              "example": "updated a wonder in electronics"
+            },
+            "price": {
+              "type": "number",
+              "example": "25"
+            },
+            "available": {
+              "type": "boolean",
+              "example": "false"
+            }
+          },
+          "required": "name"
+        }
+      }
+    }
+  */
   try {
     const itemId = new ObjectId(req.params.id);
 
@@ -125,6 +178,12 @@ const updateItem = async (req, res) => {
  * Delete an item by its ID.
  */
 const deleteItem = async (req, res) => {
+   /* #swagger.parameters['authorization'] = {
+      in: 'header',
+      description: 'JWT token with Bearer prefix',       
+      type: 'string',
+      default: 'Bearer '
+  } */
   try {
     const itemId = new ObjectId(req.params.id);
     const response = await mongodb.getDb().db().collection('items').deleteOne({ _id: itemId });

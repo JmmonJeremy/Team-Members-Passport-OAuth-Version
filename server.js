@@ -8,6 +8,7 @@ const authRoutes = require('./routes/auth'); // Route for OAuth
 const itemRoutes = require('./routes/items');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
+const path = require('path');
 
 // Load environment variables from .env file
 dotenv.config();
@@ -40,9 +41,35 @@ app
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
   })
+  // Serve static files from the "public" folder
+  .use(express.static(path.join(__dirname, 'public')))
+  // Default route to load index.html 
   .use('/auth', authRoutes) // OAuth routes
   .use('/items', itemRoutes) // Protected API routes
-  .use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument)) // Swagger documentation
+  .use(
+    '/api-docs', 
+    swaggerUi.serve, 
+    swaggerUi.setup(swaggerDocument, {
+      customCss: `
+        .swagger-ui label,
+        .swagger-ui .auth-container input {
+          display: none;
+        }
+        .swagger-ui .dialog-ux .modal-ux-content p.flow {
+          margin-bottom: 2rem;
+        }
+        .swagger-ui b {
+          color: red;
+          position: absolute;
+          bottom: 90px;
+          left: 40px;      
+        }  
+        .swagger-ui .parameter__default {
+          display: none;
+        }   
+      ` // Example of custom CSS directly in the setup
+    })
+  )
   .use('/', (req, res) => {
     res.status(404).json({ message: "Route not found" });
   });
