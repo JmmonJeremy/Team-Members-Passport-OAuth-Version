@@ -48,6 +48,35 @@ const getSingle = async (req, res) => {
  * Create a new item in the database.
  */
 const createItem = async (req, res) => {
+  /* #swagger.parameters['body'] = {
+        in: 'body',
+        description: 'Fields to fill out.',
+        required: true,
+         '@schema': {
+          "type": "object", 
+          "properties": {         
+            "name": {
+              "type": "string",
+              "example": "part name"
+            },
+            "description": {
+              "type": "string",
+              "example": "a wonder in electronics"
+            },
+            "price": {
+              "type": "number",
+              "example": "20"
+            },
+            "available": {
+              "type": "boolean",
+              "example": "true"
+            }
+          },
+          "required": "name"
+        }
+      }
+    }
+  */
   try {
     // Validate request body
     const { error, value } = itemSchema.validate(req.body);

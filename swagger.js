@@ -5,8 +5,17 @@ const doc = {
     title: 'My API',
     description: 'Computer Store API'
   },
-  host: 'localhost:3000',
-  schemes: ['http']
+  host: 'localhost:55000',
+  schemes: ['http'],
+  securityDefinitions: {
+    BearerAuth: {
+      type: 'apiKey',
+      in: 'header',
+      name: 'Authorization',
+      description: "Enter the JWT token with 'Bearer ' prefix",
+    }, 
+  },
+  
 };
 
 const outputFile = './swagger.json';

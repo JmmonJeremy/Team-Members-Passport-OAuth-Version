@@ -5,7 +5,7 @@
     "description": "Computer Store API",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "localhost:55000",
   "basePath": "/",
   "schemes": [
     "http"
@@ -58,8 +58,36 @@
             "in": "header",
             "type": "string",
             "description": "JWT token with Bearer prefix"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Fields to fill out.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "part name"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "a wonder in electronics"
+                },
+                "price": {
+                  "type": "number",
+                  "example": "20"
+                },
+                "available": {
+                  "type": "boolean",
+                  "example": "true"
+                }
+              },
+              "required": "name"
+            }
           }
-        ],
+        ],        
         "responses": {
           "201": {
             "description": "Created"
