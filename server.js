@@ -9,22 +9,31 @@ const itemRoutes = require('./routes/items');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 const path = require('path');
+const MongoDBStore = require('connect-mongodb-session')(session);
+const cors = require('cors');
 
 // Load environment variables from .env file
 dotenv.config();
 
-const port = process.env.PORT || 55000;
+const store = new MongoDBStore({
+  uri: process.env.MONGODB_URI,
+  collection: 'sessions'
+});
+
 const app = express();
+const port = process.env.PORT || 55000;
 
 // Initialize passport configuration
 require('./config/passport'); 
 
 app
-  // Body parser for JSON requests
-  .use(bodyParser.json())
+  .use(cors())
+  // Body parser for JSON requests newer versions v4.16.0 replace: app.use(bodyParser.json());
+  .use(express.json())
   
   // Add express-session before passport
   .use(session({
+    store,
     secret: process.env.SESSION_SECRET || 'your_secret_key',
     resave: false, // Prevent resaving unmodified sessions
     saveUninitialized: false, // Don’t save uninitialized sessions
@@ -33,6 +42,8 @@ app
   // Initialize Passport and enable persistent login sessions
   .use(passport.initialize())
   .use(passport.session()) // This is needed for persistent login sessions
+  // Serve static files from the "public" folder
+  .use(express.static(path.join(__dirname, 'public')))
   
   .use((req, res, next) => {
     // Allow CORS for all domains
@@ -40,9 +51,7 @@ app
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
-  })
-  // Serve static files from the "public" folder
-  .use(express.static(path.join(__dirname, 'public')))
+  })  
   // Default route to load index.html 
   .use('/auth', authRoutes) // OAuth routes
   .use('/items', itemRoutes) // Protected API routes

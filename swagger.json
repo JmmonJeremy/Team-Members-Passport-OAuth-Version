@@ -5,16 +5,16 @@
     "description": "Computer Store API",
     "version": "1.0.0"
   },
-  "host": "team-members-passport-oauth-version.onrender.com",
+  "host": "localhost:55000",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "securityDefinitions": {
     "GoogleOAuth2": {
       "type": "oauth2",
       "flow": "implicit",
-      "authorizationUrl": "https://team-members-passport-oauth-version.onrender.com",
+      "authorizationUrl": "http://localhost:55000/auth/google",
       "description": "Use Google OAuth2 to authenticate <b>The server uses the hidden values GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET here.</b>"
     }
   },
