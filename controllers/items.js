@@ -16,6 +16,7 @@ const itemSchema = Joi.object({
  * Retrieve all items from the database.
  */
 const getAll = async (req, res) => {
+  /* #swagger.security = [{ "bearerAuth": [] }] */
   /* #swagger.parameters['authorization'] = {
       in: 'header',
       description: 'JWT token with Bearer prefix',       
@@ -36,7 +37,8 @@ const getAll = async (req, res) => {
  * Retrieve a single item by its ID.
  */
 const getSingle = async (req, res) => {
-   /* #swagger.parameters['authorization'] = {
+  /* #swagger.security = [{ "bearerAuth": [] }] */
+  /* #swagger.parameters['authorization'] = {
       in: 'header',
       description: 'JWT token with Bearer prefix',       
       type: 'string',
@@ -60,7 +62,8 @@ const getSingle = async (req, res) => {
  * Create a new item in the database.
  */
 const createItem = async (req, res) => {
-   /* #swagger.parameters['authorization'] = {
+  /* #swagger.security = [{ "bearerAuth": [] }] */
+  /* #swagger.parameters['authorization'] = {
       in: 'header',
       description: 'JWT token with Bearer prefix',       
       type: 'string',
@@ -118,7 +121,8 @@ const createItem = async (req, res) => {
  * Update an existing item by its ID.
  */
 const updateItem = async (req, res) => {
-   /* #swagger.parameters['authorization'] = {
+  /* #swagger.security = [{ "bearerAuth": [] }] */
+  /* #swagger.parameters['authorization'] = {
       in: 'header',
       description: 'JWT token with Bearer prefix',       
       type: 'string',
@@ -178,7 +182,8 @@ const updateItem = async (req, res) => {
  * Delete an item by its ID.
  */
 const deleteItem = async (req, res) => {
-   /* #swagger.parameters['authorization'] = {
+  /* #swagger.security = [{ "bearerAuth": [] }] */
+  /* #swagger.parameters['authorization'] = {
       in: 'header',
       description: 'JWT token with Bearer prefix',       
       type: 'string',

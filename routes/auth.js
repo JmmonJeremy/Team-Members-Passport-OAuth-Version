@@ -8,7 +8,7 @@ const router = express.Router();
 // Initiate Google OAuth
 router.get('/google', 
   // #swagger.ignore = true
-  passport.authenticate('google', { scope: ['profile'] }));
+  passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 // Handle Google OAuth callback
 router.get(

@@ -21,7 +21,7 @@ const doc = {
       // missing /auth/google was the difference between it working and not working
       ? 'https://team-members-passport-oauth-version.onrender.com/auth/google'
       : 'http://localhost:55000/auth/google',
-      description: 'Use Google OAuth2 to authenticate <b>The server uses the hidden values GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET here.</b>',
+      description: 'Use Google OAuth2 to authenticate <b>Exchange the hidden GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET for JWT_Token.</b>',
       // client_id: process.env.GOOGLE_CLIENT_ID, // Inject client_id dynamically
     },
   } 
